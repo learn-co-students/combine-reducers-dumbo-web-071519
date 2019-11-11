@@ -5,15 +5,17 @@ const rootReducer = combineReducers({
   books: booksReducer
 });
 
+export default rootReducer;
+
 function booksReducer(state = [], action) {
   let idx;
   switch (action.type) {
     case "ADD_BOOK":
-      return [...state.books, action.book];
+      return [...state, action.book];
 
     case "REMOVE_BOOK":
       idx = state.books.findIndex(book => book.id === action.id);
-      return [...state.books.slice(0, idx), ...state.books.slice(idx + 1)];
+      return [...state.slice(0, idx), ...state.books.slice(idx + 1)];
 
     default:
       return state;
@@ -21,13 +23,14 @@ function booksReducer(state = [], action) {
 }
 
 function authorsReducer(state = [], action) {
+  let idx;
   switch(action.type) {
     case "ADD_AUTHOR":
-      return [...state.authors, action.author];
+      return [...state, action.author];
 
     case "REMOVE_AUTHOR":
       idx = state.authors.findIndex(author => author.id === action.id);
-      return [...state.authors.slice(0, idx), ...state.authors.slice(idx + 1)];
+      return [...state.slice(0, idx), ...state.authors.slice(idx + 1)];
 
     default:
       return state;
